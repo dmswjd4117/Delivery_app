@@ -44,6 +44,24 @@ public class AddressResponse {
         return detailBuildingName;
     }
 
+    public String getBuildingNum() {
+        return buildingNum;
+    }
+
+    public void setBuildingNum(String buildingNum) {
+        this.buildingNum = buildingNum;
+    }
+
+    public static String getRoadNameAddress(AddressResponse response){
+        String res = response.getCityName()+" "
+                +response.getCityCountyName()+" "
+                +response.getRoadName()+" "
+                +response.getBuildingNum()+" "
+                +response.getBuildingNameForCity()+" "
+                +response.getDetailBuildingName();
+        return res;
+    }
+
     String cityName;
     String cityCountyName;
     String townName;
@@ -51,5 +69,6 @@ public class AddressResponse {
     String buildingManagementNum;
     String buildingNameForCity;
     String detailBuildingName;
+    String buildingNum;
 
 }
