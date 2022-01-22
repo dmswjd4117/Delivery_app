@@ -2,6 +2,7 @@ package com.android.delivery.view.address;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.delivery.adapter.address.AddressSearchAdapter;
-import com.android.delivery.adapter.address.AddressSearchClass;
+import com.android.delivery.adapter.address.AddressSearchItem;
 import com.android.delivery.api.AddressAPI;
 import com.android.delivery.RetrofitClient;
 import com.android.delivery.databinding.ActivityAddressSettingBinding;
@@ -17,21 +18,9 @@ import com.android.delivery.model.Response;
 import com.android.delivery.model.address.AddressRequest;
 import com.android.delivery.model.address.AddressResponse;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,7 +30,6 @@ import retrofit2.Retrofit;
 public class AddressSettingActivity extends AppCompatActivity {
 
     private ActivityAddressSettingBinding binding;
-    private Retrofit retrofit;
     private ListView listView;
 
     @Override
@@ -56,8 +44,8 @@ public class AddressSettingActivity extends AppCompatActivity {
         listView.setAdapter(addressSearchAdapter);
 
 
-        retrofit = RetrofitClient.getClient();
-        AddressAPI addressAPI = retrofit.create(AddressAPI.class);
+
+        AddressAPI addressAPI = RetrofitClient.createService(AddressAPI.class);
         binding.addressSearchSearchBtn.setOnClickListener((view) -> {
             String cityCountyName = binding.addressSearchCityCountyName.getText().toString();
             String roadName = binding.addressSearchRoadName.getText().toString();
@@ -85,7 +73,7 @@ public class AddressSettingActivity extends AppCompatActivity {
                     List<AddressResponse> addressResponseList = gson.fromJson(jsonResult, type);
                     for (int i = 0; i < addressResponseList.size(); i++) {
                         AddressResponse addressResponse = addressResponseList.get(i);
-                        addressSearchAdapter.addItem(addressResponse.getBuildingNameForCity(), AddressResponse.getRoadNameAddress(addressResponse));
+                        addressSearchAdapter.addItem(addressResponse.getBuildingNameForCity(), AddressResponse.getRoadNameAddress(addressResponse), addressResponse.getBuildingManagementNum());
                     }
 
                     addressSearchAdapter.notifyDataSetChanged();
@@ -102,8 +90,13 @@ public class AddressSettingActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    AddressSearchClass item = (AddressSearchClass) addressSearchAdapter.getItem(i);
-                    Log.i("ADDRESS ITEM", i+" "+item.getTitle()+" "+item.getDetailAddress());
+                    AddressSearchItem item = (AddressSearchItem) addressSearchAdapter.getItem(i);
+
+                    Intent intent = new Intent(getApplicationContext(), AddressDetailActivity.class);
+                    intent.putExtra("title", item.getTitle());
+                    intent.putExtra("roadNameAddress", item.getRoadNameAddress());
+                    intent.putExtra("buildingManagementNum", item.getBuildingManagementNum());
+                    startActivity(intent);
                 }
             });
 

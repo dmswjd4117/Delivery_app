@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.menu_addressSetting:
-                Toast.makeText(getApplicationContext(), "menu_addressSetting", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), AddressSettingActivity.class);
                 startActivity(intent);
                 return true;

@@ -10,4 +10,5 @@ import retrofit2.http.POST;
 public interface AddressAPI {
     @POST("/address/search/road")
     Call<Response> searchAddressByRoadName(@Body AddressRequest addressRequest);
+
 }

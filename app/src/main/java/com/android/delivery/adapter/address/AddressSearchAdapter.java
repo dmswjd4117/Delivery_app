@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class AddressSearchAdapter extends BaseAdapter {
 
-    private ArrayList<AddressSearchClass> addressItems = new ArrayList<>();
+    private ArrayList<AddressSearchItem> addressItems = new ArrayList<>();
     private Context context;
     private ViewHolder viewHolder;
 
@@ -38,10 +38,10 @@ public class AddressSearchAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        AddressSearchClass addressSearchItem = addressItems.get(i);
+        AddressSearchItem addressSearchItem = addressItems.get(i);
 
         viewHolder.titleView.setText(addressSearchItem.getTitle());
-        viewHolder.roadNameView.setText(addressSearchItem.getDetailAddress());
+        viewHolder.roadNameView.setText(addressSearchItem.getRoadNameAddress());
 
         return view;
     }
@@ -61,11 +61,12 @@ public class AddressSearchAdapter extends BaseAdapter {
         return i;
     }
 
-    public void addItem(String title, String detailAddress){
-        AddressSearchClass item = new AddressSearchClass();
+    public void addItem(String title, String roadNameAddress, String buildingManagementNum){
+        AddressSearchItem item = new AddressSearchItem();
 
-        item.setDetailAddress(detailAddress);
+        item.setRoadNameAddress(roadNameAddress);
         item.setTitle(title);
+        item.setBuildingManagementNum(buildingManagementNum);
 
         addressItems.add(item);
     }

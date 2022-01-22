@@ -25,7 +25,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private MaterialButton loginButton;
     private ActivityLoginBinding binding;
-
+    private Retrofit retrofit;
+    private UserAPI userAPI;
 
     @SuppressLint({"WrongViewCast", "ResourceType"})
     @Override
@@ -48,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
 
             LoginRequest loginRequest = new LoginRequest(email, password);
 
-            Retrofit retrofit = RetrofitClient.getClient();
-            UserAPI userAPI = retrofit.create(UserAPI.class);
+            userAPI = RetrofitClient.createService(UserAPI.class);
+
             userAPI.loginUser(loginRequest).enqueue(new Callback<Response>() {
                 @Override
                 public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
