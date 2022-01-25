@@ -8,12 +8,94 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:background="@color/material_on_background_emphasis_medium"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
 
-    </androidx.appcompat.widget.Toolbar>
+
+    <GridLayout
+        android:id="@+id/menuBar_gridLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="88dp"
+        android:columnCount="4"
+        android:orientation="horizontal"
+
+        android:useDefaultMargins="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar">
+
+        <Button
+            android:id="@+id/category_1"
+            android:layout_width="14dp"
+            android:layout_height="90dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:text="한식"></Button>
+
+        <Button
+            android:id="@+id/category_2"
+            android:layout_width="14dp"
+            android:layout_height="90dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:text="분식"></Button>
+
+        <Button
+            android:id="@+id/category_3"
+            android:layout_width="14dp"
+            android:layout_height="90dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:text="까페/디저트"></Button>
+
+        <Button
+            android:id="@+id/category_4"
+            android:layout_width="14dp"
+            android:layout_height="90dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:text="일식"></Button>
+
+        <Button
+            android:id="@+id/category_5"
+            android:layout_width="14dp"
+            android:layout_height="90dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:text="치킨"></Button>
+
+        <Button
+            android:id="@+id/category_6"
+            android:layout_width="14dp"
+            android:layout_height="90dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:text="피자"></Button>
+
+        <Button
+            android:id="@+id/category_7"
+            android:layout_width="14dp"
+            android:layout_height="90dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:text="탕"></Button>
+
+        <Button
+            android:id="@+id/category_8"
+            android:layout_width="14dp"
+            android:layout_height="90dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:text="패스트푸드"></Button>
+
+    </GridLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
