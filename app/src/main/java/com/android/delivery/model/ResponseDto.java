@@ -1,6 +1,6 @@
 package com.android.delivery.model;
 
-public class Response<T> {
+public class ResponseDto<T> {
     public boolean isSuccess() {
         return success;
     }
@@ -18,7 +18,7 @@ public class Response<T> {
         private final ApiError error;
 
 
-        public Response(boolean success, T response, ApiError error) {
+        public ResponseDto(boolean success, T response, ApiError error) {
             this.success = success;
             this.response = response;
             this.error = error;

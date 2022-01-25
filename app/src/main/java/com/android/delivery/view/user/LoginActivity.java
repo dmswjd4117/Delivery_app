@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.delivery.databinding.ActivityLoginBinding;
 import com.android.delivery.model.user.LoginRequest;
-import com.android.delivery.model.Response;
-import com.android.delivery.RetrofitClient;
+import com.android.delivery.model.ResponseDto;
+import com.android.delivery.utils.RetrofitClient;
 import com.android.delivery.api.UserAPI;
 import com.google.android.material.button.MaterialButton;
 
@@ -51,10 +51,10 @@ public class LoginActivity extends AppCompatActivity {
 
             userAPI = RetrofitClient.createService(UserAPI.class);
 
-            userAPI.loginUser(loginRequest).enqueue(new Callback<Response>() {
+            userAPI.loginUser(loginRequest).enqueue(new Callback<ResponseDto>() {
                 @Override
-                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                    Response res = response.body();
+                public void onResponse(Call<ResponseDto> call, retrofit2.Response<ResponseDto> response) {
+                    ResponseDto res = response.body();
                     if(res == null)return;
                     if(res.isSuccess()){
                         String token = (String) res.getResponse();
@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 @Override
-                public void onFailure(Call<Response> call, Throwable t) {
+                public void onFailure(Call<ResponseDto> call, Throwable t) {
                 }
             });
 

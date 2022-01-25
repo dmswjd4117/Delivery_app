@@ -12,9 +12,9 @@ import android.widget.ListView;
 import com.android.delivery.adapter.address.AddressSearchAdapter;
 import com.android.delivery.adapter.address.AddressSearchItem;
 import com.android.delivery.api.AddressAPI;
-import com.android.delivery.RetrofitClient;
+import com.android.delivery.utils.RetrofitClient;
 import com.android.delivery.databinding.ActivityAddressSettingBinding;
-import com.android.delivery.model.Response;
+import com.android.delivery.model.ResponseDto;
 import com.android.delivery.model.address.AddressRequest;
 import com.android.delivery.model.address.AddressResponse;
 import com.google.gson.Gson;
@@ -25,7 +25,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Retrofit;
 
 public class AddressSettingActivity extends AppCompatActivity {
 
@@ -53,17 +52,16 @@ public class AddressSettingActivity extends AppCompatActivity {
             String cityName = binding.addressSearchCityName.getText().toString();
 
             AddressRequest addressRequest = new AddressRequest(cityName, cityCountyName, roadName, buildingName);
-            addressAPI.searchAddressByRoadName(addressRequest).enqueue(new Callback<Response>() {
+            addressAPI.searchAddressByRoadName(addressRequest).enqueue(new Callback<ResponseDto>() {
                 @Override
-                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                    Response res = response.body();
+                public void onResponse(Call<ResponseDto> call, retrofit2.Response<ResponseDto> response) {
+                    ResponseDto res = response.body();
 
                     if(res == null)return;
 
                     if(!res.isSuccess())return;
 
-                    // gson -> json
-                    // https://stackoverflow.com/questions/10020371/need-gson-to-return-a-java-jsonarray
+
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<AddressResponse>>(){}.getType();
                     String jsonResult = gson.toJson(res.getResponse());
@@ -80,7 +78,7 @@ public class AddressSettingActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<Response> call, Throwable t) {
+                public void onFailure(Call<ResponseDto> call, Throwable t) {
                     Log.e("address_info_error", t.getMessage());
                 }
 
@@ -96,6 +94,7 @@ public class AddressSettingActivity extends AppCompatActivity {
                     intent.putExtra("title", item.getTitle());
                     intent.putExtra("roadNameAddress", item.getRoadNameAddress());
                     intent.putExtra("buildingManagementNum", item.getBuildingManagementNum());
+
                     startActivity(intent);
                 }
             });
