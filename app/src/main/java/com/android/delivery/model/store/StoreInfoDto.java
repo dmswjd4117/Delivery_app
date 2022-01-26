@@ -5,6 +5,12 @@ public class StoreInfoDto {
     private String name;
     private String phone;
     private Long categoryId;
+    private String address;
+    private String buildingManagementNum;
+    private String imageUrl;
+    private Long minimumOrder;
+    private Long deliveryTip;
+
 
     public Long getId() {
         return id;
@@ -54,6 +60,28 @@ public class StoreInfoDto {
         this.buildingManagementNum = buildingManagementNum;
     }
 
-    private String address;
-    private String buildingManagementNum;
+     public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Long getMinimumOrder() {
+        return minimumOrder;
+    }
+
+    public void setMinimumOrder(Long minimumOrder) {
+        this.minimumOrder = minimumOrder;
+    }
+
+    public Long getDeliveryTip() {
+        return deliveryTip;
+    }
+
+    public void setDeliveryTip(Long deliveryTip) {
+        this.deliveryTip = deliveryTip;
+    }
+
 }

@@ -21,6 +21,7 @@ import com.android.delivery.model.store.StoreInfoDto;
 import com.android.delivery.utils.PreferenceManger;
 import com.android.delivery.utils.RetrofitClient;
 import com.android.delivery.view.address.AddressSettingActivity;
+import com.android.delivery.view.store.StoreListActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -77,43 +78,11 @@ public class MainActivity extends AppCompatActivity {
         }
         for(int i= 1;  i <= childCnt; i++){
             Button button = buttons[i];
-            int categoryID = i;
+            int categoryId = i;
             button.setOnClickListener((view)->{
-
-                String addressCode = PreferenceManger.getString(this, "addressCode");
-
-                storeSearchApi.searchAll(addressCode, categoryID).enqueue(new Callback<ResponseDto>() {
-                    @Override
-                    public void onResponse(Call<ResponseDto> call, Response<ResponseDto> response) {
-                        ResponseDto responseDto = response.body();
-                        if(responseDto == null){
-                            Log.e("STORE_CATEGORY", "response body empty");
-                            return;
-                        }
-                        if(!responseDto.isSuccess()){
-                            Log.e("STORE_CATEGORY", responseDto.getError().getMessage());
-                            return;
-                        }
-
-                        Gson gson = new Gson();
-                        Type type = new TypeToken<List<StoreInfoDto>>(){}.getType();
-                        String jsonResult = gson.toJson(responseDto.getResponse());
-
-                        List<StoreInfoDto> storeInfoList = gson.fromJson(jsonResult, type);
-                        Log.i("STORE_CATEGORY", addressCode+" "+categoryID+" "+storeInfoList.size());
-                         for (int i = 0; i < storeInfoList.size(); i++) {
-                            StoreInfoDto storeInfoDto = storeInfoList.get(i);
-                            Log.i("STORE_CATEGORY", storeInfoDto.getName()+storeInfoDto.getId());
-                         }
-
-                        return;
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseDto> call, Throwable t) {
-                        return;
-                    }
-                });
+                Intent intent = new Intent(getApplicationContext(), StoreListActivity.class);
+                intent.putExtra("category_id", categoryId+"");
+                startActivity(intent);
             });
         }
 

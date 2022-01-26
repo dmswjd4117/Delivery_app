@@ -7,16 +7,18 @@
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20185185185185187" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/_activity_login.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_address_detail.xml" value="0.264" />
-        <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_address_setting.xml" value="0.264" />
+        <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_address_setting.xml" value="0.1" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_register.xml" value="0.176" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_signup.xml" value="0.1" />
+        <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_store_list_actvitiy.xml" value="0.15670289855072464" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/address_dialog.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/address_search_item.xml" value="0.2" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/content_main.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/fragment_first.xml" value="0.264" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/fragment_second.xml" value="0.264" />
+        <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/item_store.xml" value="0.264" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/menu/appbar_action.xml" value="0.4" />
       </map>
     </option>

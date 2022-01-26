@@ -12,5 +12,5 @@ import retrofit2.http.Query;
 public interface StoreSearchApi {
 
     @GET("/stores/search/all")
-    Call<ResponseDto> searchAll(@Query("addressCode") String addressCode, @Query("id") int id);
+    Call<ResponseDto> searchAll(@Query("addressCode") String addressCode, @Query("id") String id);
 }

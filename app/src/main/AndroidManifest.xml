@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.store.StoreListActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.user.RegisterActivity"
             android:exported="true" />
         <activity
