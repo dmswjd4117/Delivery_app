@@ -1,18 +1,26 @@
 package com.android.delivery.view.store;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.android.delivery.R;
 import com.android.delivery.adapter.store.StoreAdapter;
+import com.android.delivery.adapter.store.StoreItem;
 import com.android.delivery.api.StoreSearchApi;
 import com.android.delivery.databinding.ActivityStoreListActvitiyBinding;
 import com.android.delivery.model.ResponseDto;
 import com.android.delivery.model.store.StoreInfoDto;
 import com.android.delivery.utils.PreferenceManger;
 import com.android.delivery.utils.RetrofitClient;
+import com.android.delivery.utils.ToolBarSetting;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -30,6 +38,9 @@ public class StoreListActivity extends AppCompatActivity {
     private StoreAdapter storeAdapter;
     private StoreSearchApi storeSearchApi;
     private final String TAG = "STORE_LIST";
+    private Toolbar toolbar;
+    private ToolBarSetting toolBarSetting;
+    private Gson gson = new Gson();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +48,12 @@ public class StoreListActivity extends AppCompatActivity {
 
         binding = ActivityStoreListActvitiyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        toolbar = binding.toolbar;
+        toolBarSetting = new ToolBarSetting(toolbar);
+        setSupportActionBar(toolbar);
+        toolBarSetting.setTitle(getSupportActionBar(), this);
+
 
         listView = binding.storeListView;
         storeAdapter = new StoreAdapter(StoreListActivity.this);
@@ -60,7 +77,6 @@ public class StoreListActivity extends AppCompatActivity {
                     return;
                 }
 
-                Gson gson = new Gson();
                 Type type = new TypeToken<List<StoreInfoDto>>(){}.getType();
                 String jsonResult = gson.toJson(responseDto.getResponse());
                 List<StoreInfoDto> storeInfoList = gson.fromJson(jsonResult, type);
@@ -73,7 +89,6 @@ public class StoreListActivity extends AppCompatActivity {
                 }
 
                 storeAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -82,6 +97,28 @@ public class StoreListActivity extends AppCompatActivity {
             }
         });
 
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                StoreItem item = (StoreItem) storeAdapter.getItem(i);
+
+                Intent intent = new Intent(getApplicationContext(), StoreActivity.class);
+                intent.putExtra("storeId", item.getId());
+
+                startActivity(intent);
+            }
+        });
+
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.basic_appbar_action, menu);
+        return true;
+    }
+
+
 
 }

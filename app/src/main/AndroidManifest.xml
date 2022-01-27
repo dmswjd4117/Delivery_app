@@ -13,6 +13,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.user.MyPage"
+            android:exported="true" />
+        <activity
+            android:name=".view.store.StoreActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.store.StoreListActivity"
             android:exported="true" />
         <activity

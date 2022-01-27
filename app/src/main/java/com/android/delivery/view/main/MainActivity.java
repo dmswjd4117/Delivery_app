@@ -20,8 +20,10 @@ import com.android.delivery.model.ResponseDto;
 import com.android.delivery.model.store.StoreInfoDto;
 import com.android.delivery.utils.PreferenceManger;
 import com.android.delivery.utils.RetrofitClient;
+import com.android.delivery.utils.ToolBarSetting;
 import com.android.delivery.view.address.AddressSettingActivity;
 import com.android.delivery.view.store.StoreListActivity;
+import com.android.delivery.view.user.MyPage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,7 +37,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private StoreSearchApi storeSearchApi;
+    private ToolBarSetting toolBarSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,28 +46,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        storeSearchApi = RetrofitClient.createService(StoreSearchApi.class);
 
         // tool bar
         Toolbar toolbar = binding.toolbar;
+        toolBarSetting = new ToolBarSetting(toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
+        toolBarSetting.setTitle(getSupportActionBar(), this);
 
-        String title = PreferenceManger.getString(this, "addressTitle")+" ▼";
-        if(title.equals("")){
-            PreferenceManger.setString(this, "addressTitle", "부경대학교");
-            PreferenceManger.setString(this, "addressCode", "2629010600");
-            PreferenceManger.setString(this,"detailAddress", "청운관");
-            PreferenceManger.setString(this, "roadNameAddress", "수영로358번길");
-            title = "부경대학교 ▼";
-        }
-
-        actionBar.setTitle(title);
-        toolbar.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), AddressSettingActivity.class);
-            startActivity(intent);
-        });
 
         // menu category
         GridLayout gridLayout = binding.menuBarGridLayout;
@@ -102,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
     {
         switch (item.getItemId())
         {
+            case R.id.menuSearch_myPage:
+                Intent intent = new Intent(getApplicationContext(), MyPage.class);
+                startActivity(intent);
+
             default:
                 return super.onOptionsItemSelected(item);
         }

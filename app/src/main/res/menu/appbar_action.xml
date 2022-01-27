@@ -6,9 +6,9 @@
 
 
     <item
-        android:id="@+id/menu_search"
+        android:id="@+id/menuSearch_myPage"
         android:title="개인정보"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
 
 
