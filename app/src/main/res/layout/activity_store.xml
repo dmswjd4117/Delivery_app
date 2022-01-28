@@ -6,6 +6,180 @@
     android:layout_height="match_parent"
     tools:context=".view.store.StoreActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        ></androidx.appcompat.widget.Toolbar>
+
+     <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+         <LinearLayout
+            android:id="@+id/storeInfo_titleBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:textSize="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:text="store title">
+            </TextView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
+                <Button
+                    android:layout_margin="20dp"
+                    android:text="전화"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:layout_width="70dp">
+                </Button>
+                <Button
+                    android:layout_margin="20dp"
+                    android:layout_height="50dp"
+                    android:layout_width="70dp"
+                    android:text="찜">
+                </Button>
+                <Button
+                    android:layout_margin="20dp"
+                    android:layout_height="50dp"
+                    android:layout_width="70dp"
+                    android:text="공유">
+                </Button>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/cardview_dark_background"
+                android:layout_height="2dp">
+            </View>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:columnCount="2">
+                <TextView
+                    android:text="최소주문금액"
+                    android:layout_margin="10dp"
+                    >
+                </TextView>
+
+                <TextView
+                    android:layout_margin="10dp"
+                    android:text="n원">
+
+                </TextView>
+
+                <TextView
+                    android:layout_margin="10dp"
+                    android:text="배달팁">
+                </TextView>
+
+                <TextView
+                    android:layout_margin="10dp"
+                    android:text="n원">
+
+                </TextView>
+            </GridLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/cardview_dark_background"
+                android:layout_height="2dp">
+            </View>
+
+
+            <TabHost
+                android:id="@+id/storeInfo_tabHost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TabWidget
+                        android:id="@android:id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TabWidget>
+
+                    <FrameLayout
+                        android:id="@android:id/tabcontent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <!-- 첫 번째 페이지  -->
+                        <LinearLayout
+                            android:id="@+id/storeInfo_menuContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="2000dp"
+                            android:orientation="vertical">
+
+                            <ExpandableListView
+                                android:id="@+id/storeInfo_groupMenuList"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            </ExpandableListView>
+
+                        </LinearLayout>
+
+                        <!-- 두 번째 페이지  -->
+                        <LinearLayout
+                            android:id="@+id/storeInfo_infoContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#009688"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                android:text="TAB CONTENT 2" />
+
+                        </LinearLayout>
+
+                        <!-- 세 번째 페이지  -->
+                        <LinearLayout
+                            android:id="@+id/storeInfo_reviewContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ListView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            </ListView>
+
+                        </LinearLayout>
+                    </FrameLayout>
+
+
+                </LinearLayout>
+
+
+            </TabHost>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

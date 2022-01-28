@@ -29,7 +29,7 @@ public class AddressSearchAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.address_search_item, viewGroup, false);
+            view = LayoutInflater.from(context).inflate(R.layout.item_address_search, viewGroup, false);
             viewHolder = new ViewHolder();
             viewHolder.roadNameView = view.findViewById(R.id.addressSearch_item_roadNameAddress);
             viewHolder.titleView = view.findViewById(R.id.addressSearch_item_title);
