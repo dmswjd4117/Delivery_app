@@ -118,7 +118,9 @@ public class GroupMenuAdapter extends BaseExpandableListAdapter {
         menuHolder.nameView.setText(item.getName());
         menuHolder.descriptionView.setText(item.getDescription());
         menuHolder.priceView.setText(item.getPrice()+"");
-        Glide.with(view).load(item.getPhoto()).into(menuHolder.imageView);
+        if(!item.getPhoto().equals("")){
+            Glide.with(view).load(item.getPhoto()).into(menuHolder.imageView);
+        }
 
         return view;
     }
@@ -156,6 +158,10 @@ public class GroupMenuAdapter extends BaseExpandableListAdapter {
         menuItem.setPrice(menuDto.getPrice());
 
         childHashMap.get(parent_index).add(menuItem);
+    }
+
+    public Long getMenuId(int p, int c){
+        return childHashMap.get(p).get(c).getId();
     }
 
 

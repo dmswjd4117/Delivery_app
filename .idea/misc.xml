@@ -13,7 +13,7 @@
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_mypage.xml" value="0.264" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_register.xml" value="0.176" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_signup.xml" value="0.1" />
-        <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_store.xml" value="0.264" />
+        <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_store.xml" value="0.176" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/activity_store_list_actvitiy.xml" value="0.1" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/address_dialog.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/address_search_item.xml" value="0.2" />
@@ -21,9 +21,10 @@
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/fragment_first.xml" value="0.264" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/fragment_second.xml" value="0.264" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/group_menu.xml" value="0.176" />
+        <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/item_address_search.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/item_group_menu.xml" value="0.1" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/item_store.xml" value="0.264" />
-        <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/menu.xml" value="0.2" />
+        <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/layout/menu.xml" value="0.176" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/menu/address_appbar_action.xml" value="0.2682291666666667" />
         <entry key="..\:/Users/Home/Desktop/study/Delivery/app/src/main/res/menu/appbar_action.xml" value="0.4" />
       </map>

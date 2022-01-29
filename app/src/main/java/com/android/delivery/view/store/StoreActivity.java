@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListAdapter;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.android.delivery.R;
 import com.android.delivery.adapter.menu.GroupMenuAdapter;
+import com.android.delivery.adapter.menu.GroupMenuItem;
+import com.android.delivery.adapter.menu.MenuItem;
 import com.android.delivery.api.MenuApi;
 import com.android.delivery.databinding.ActivityStoreBinding;
 import com.android.delivery.model.menu.GroupMenuDto;
@@ -35,9 +38,8 @@ public class StoreActivity extends AppCompatActivity {
     private String TAG = "STORE_ACTIVITY_TAG";
     private ActivityStoreBinding binding;
     private MenuApi menuApi;
-    private ExpandableListView groupMenuListView;
-
-
+    private  ExpandableListView groupMenuListView;
+    private  GroupMenuAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,21 @@ public class StoreActivity extends AppCompatActivity {
         binding = ActivityStoreBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Intent intent = getIntent();
+        Long storeId = intent.getLongExtra("storeId",  -1L);
+
         menuApi = RetrofitClient.createService(MenuApi.class);
+
         groupMenuListView = binding.storeInfoGroupMenuList;
-        GroupMenuAdapter adapter = new GroupMenuAdapter(this);
+        adapter = new GroupMenuAdapter(this);
+
+        initTab();
+        setMenuListView();
+        getMenu(storeId);
+
+    }
+
+    private void setMenuListView(){
         groupMenuListView.setAdapter(adapter);
         groupMenuListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
@@ -60,17 +74,15 @@ public class StoreActivity extends AppCompatActivity {
         groupMenuListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
+                Long menuId = adapter.getMenuId(groupPosition, childPosition);
+                Log.i(TAG, menuId+" ");
                 return false;
             }
         });
+    }
 
 
-
-        Intent intent = getIntent();
-        Long storeId = intent.getLongExtra("storeId",  -1L);
-        Long g = -1L;
-
+    private void getMenu(Long storeId){
         menuApi.getGroupMenuList(storeId).enqueue(new Callback<List<GroupMenuDto>>() {
             @Override
             public void onResponse(Call<List<GroupMenuDto>> call, Response<List<GroupMenuDto>> response) {
@@ -89,14 +101,11 @@ public class StoreActivity extends AppCompatActivity {
                         public void onResponse(Call<List<MenuDto>> call, Response<List<MenuDto>> response) {
                             List<MenuDto> menuList = response.body();
                             for (int i = 0; i < menuList.size(); i++) {
-
-
                                 MenuDto menu = menuList.get(i);
                                 adapter.addMenu(i, menu);
-                                int temp = adapter.getChildrenCount(i);
-
                             }
 
+                            setListViewHeight();
 
                         }
 
@@ -117,8 +126,6 @@ public class StoreActivity extends AppCompatActivity {
             }
         });
 
-
-        initTab();
     }
 
     private void setListView(ExpandableListView listView, int groupPosition){
@@ -144,6 +151,33 @@ public class StoreActivity extends AppCompatActivity {
         tabHost.addTab(menuTab);
         tabHost.addTab(infoTab);
         tabHost.addTab(reviewTab);
+    }
+
+    private void setListViewHeight(){
+
+        int result = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(groupMenuListView.getWidth(), View.MeasureSpec.AT_MOST);
+
+        for(int i=0; i<adapter.getGroupCount(); i++){
+            View groupMenuView = adapter.getGroupView(i, false, null, groupMenuListView);
+            groupMenuView.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            result += groupMenuView.getMeasuredHeight();
+
+            for (int j = 0; j < adapter.getChildrenCount(i); j++) {
+                View menuListView = adapter.getChildView(i, j, false, null, groupMenuListView);
+
+                menuListView.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                result += menuListView.getMeasuredHeight();
+                Log.i("ASDASD", menuListView.getMeasuredHeight()+" !!");
+            }
+        }
+
+        ViewGroup.LayoutParams params = groupMenuListView.getLayoutParams();
+        params.height = result + (groupMenuListView.getDividerHeight() * (adapter.getGroupCount() - 1));
+
+        Log.i(TAG, result+" "+params.height+" ");
+        groupMenuListView.setLayoutParams(params);
+        groupMenuListView.requestLayout();
     }
 
 }
