@@ -22,7 +22,7 @@ public class ToolBarSetting {
     }
 
 
-    public void setTitle(androidx.appcompat.app.ActionBar actionBar, Context context){
+    public void setAddress(androidx.appcompat.app.ActionBar actionBar, Context context){
         actionBar.setDisplayShowCustomEnabled(true);
 
         String title = PreferenceManger.getString(context, "addressTitle")+" ▼";

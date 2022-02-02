@@ -52,7 +52,7 @@ public class StoreListActivity extends AppCompatActivity {
         toolbar = binding.toolbar;
         toolBarSetting = new ToolBarSetting(toolbar);
         setSupportActionBar(toolbar);
-        toolBarSetting.setTitle(getSupportActionBar(), this);
+        toolBarSetting.setAddress(getSupportActionBar(), this);
 
 
         listView = binding.storeListView;
@@ -69,7 +69,7 @@ public class StoreListActivity extends AppCompatActivity {
 
                 ResponseDto responseDto = response.body();
                 if(responseDto == null){
-                    Log.e(TAG, "response body is null");
+                    Log.e(TAG, addressCode+" "+categoryId+" response body is null");
                     return;
                 };
                 if(!responseDto.isSuccess()){

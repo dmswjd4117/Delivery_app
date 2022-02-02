@@ -13,4 +13,7 @@ public interface StoreSearchApi {
 
     @GET("/stores/search/all")
     Call<ResponseDto> searchAll(@Query("addressCode") String addressCode, @Query("id") String id);
+
+    @GET("/stores/search/{id}")
+    Call<ResponseDto> searchStoreById(@Path("id") Long id);
 }

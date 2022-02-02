@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.store.MenuActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.user.MyPage"
             android:exported="true" />
         <activity

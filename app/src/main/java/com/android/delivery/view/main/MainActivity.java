@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = binding.toolbar;
         toolBarSetting = new ToolBarSetting(toolbar);
         setSupportActionBar(toolbar);
-        toolBarSetting.setTitle(getSupportActionBar(), this);
+        toolBarSetting.setAddress(getSupportActionBar(), this);
 
 
         // menu category
