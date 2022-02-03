@@ -1,20 +1,20 @@
-package com.android.delivery.model.menu;
+package com.android.delivery.adapter.option;
 
-public class OptionDto {
-    public String name;
-    public Long menuId;
-    public Long price;
+public class OptionItem {
+    private String name;
+    private Long menuId;
+    private Long price;
 
     public String getName() {
         return name;
     }
 
-    public Long getMenuId() {
-        return menuId;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getMenuId() {
+        return menuId;
     }
 
     public void setMenuId(Long menuId) {
