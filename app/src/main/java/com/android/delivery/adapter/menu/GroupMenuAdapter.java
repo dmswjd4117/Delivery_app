@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,6 +67,7 @@ public class GroupMenuAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
 
+
         if(view == null){
             view = LayoutInflater.from(context).inflate(R.layout.group_menu, viewGroup, false);
             groupViewHolder = new GroupViewHolder();
@@ -118,7 +120,7 @@ public class GroupMenuAdapter extends BaseExpandableListAdapter {
         menuHolder.nameView.setText(item.getName());
         menuHolder.descriptionView.setText(item.getDescription());
         menuHolder.priceView.setText(item.getPrice()+"");
-        if(!item.getPhoto().equals("")){
+        if(item.getPhoto() != null){
             Glide.with(view).load(item.getPhoto()).into(menuHolder.imageView);
         }
 
@@ -146,6 +148,8 @@ public class GroupMenuAdapter extends BaseExpandableListAdapter {
         if(!childHashMap.containsKey(groupPosition)){
             childHashMap.put(groupPosition, new ArrayList<>());
         }
+
+        Log.e("GROUP_ADAPTER", groupPosition+" 추가");
     }
 
 
@@ -164,7 +168,25 @@ public class GroupMenuAdapter extends BaseExpandableListAdapter {
         return childHashMap.get(p).get(c).getId();
     }
 
+    public int getListLength(ExpandableListView listView) {
+        int result = 0;
 
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
 
+        for(Integer i : childHashMap.keySet()){
+            View groupMenuView = getGroupView(i, false, null, listView);
+
+            groupMenuView.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            result += groupMenuView.getMeasuredHeight();
+
+            for (int j = 0; j < getChildrenCount(i); j++) {
+                View menuListView = getChildView(i, j, false, null, listView);
+
+                menuListView.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                result += menuListView.getMeasuredHeight();
+            }
+        }
+        return result;
+    }
 
 }

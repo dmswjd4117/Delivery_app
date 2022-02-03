@@ -34,6 +34,8 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.StringReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -124,7 +126,13 @@ public class StoreActivity extends AppCompatActivity {
                 Log.i(TAG, menuId+" ");
 
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                intent.putExtra("menuId", menuId);
+
+                MenuItem menuItem = adapter.getChild(groupPosition, childPosition);
+                intent.putExtra("menuId", menuItem.getId());
+                intent.putExtra("name", menuItem.getName());
+                intent.putExtra("photo", menuItem.getPhoto());
+                intent.putExtra("description", menuItem.getDescription());
+                intent.putExtra("price", menuItem.getPrice());
                 startActivity(intent);
 
                 return false;
@@ -140,25 +148,30 @@ public class StoreActivity extends AppCompatActivity {
             public void onResponse(Call<List<GroupMenuDto>> call, Response<List<GroupMenuDto>> response) {
                 List<GroupMenuDto> groupList = response.body();
 
-                for(int i=0; i<groupList.size(); i++){
-                    GroupMenuDto groupMenuDto = groupList.get(i);
-                    Long groupMenuId = groupMenuDto.getId();
+                for(int groupIndex=0; groupIndex<groupList.size(); groupIndex++){
+                    GroupMenuDto groupMenuDto = groupList.get(groupIndex);
+                    int finalGroupIndex = groupIndex;
 
-                    adapter.addGroupMenu(i, groupMenuDto);
 
-                    Log.i(TAG, groupMenuId+" "+groupList.get(i).getTitle());
-                    menuApi.getMenuList(groupMenuId).enqueue(new Callback<List<MenuDto>>() {
+                    adapter.addGroupMenu(finalGroupIndex, groupMenuDto);
 
+
+                    Long ID = groupMenuDto.getId();
+                    menuApi.getMenuList(ID).enqueue(new Callback<List<MenuDto>>() {
                         @Override
                         public void onResponse(Call<List<MenuDto>> call, Response<List<MenuDto>> response) {
                             List<MenuDto> menuList = response.body();
+
+
                             for (int i = 0; i < menuList.size(); i++) {
                                 MenuDto menu = menuList.get(i);
-                                adapter.addMenu(i, menu);
+                                adapter.addMenu(finalGroupIndex, menu);
                             }
+                            adapter.notifyDataSetChanged();
+
 
                             setListViewHeight();
-
+                            groupMenuListView.expandGroup(finalGroupIndex);
                         }
 
                         @Override
@@ -169,7 +182,7 @@ public class StoreActivity extends AppCompatActivity {
 
                 }
 
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -205,21 +218,7 @@ public class StoreActivity extends AppCompatActivity {
 
     private void setListViewHeight(){
 
-        int result = 0;
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(groupMenuListView.getWidth(), View.MeasureSpec.AT_MOST);
-
-        for(int i=0; i<adapter.getGroupCount(); i++){
-            View groupMenuView = adapter.getGroupView(i, false, null, groupMenuListView);
-            groupMenuView.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            result += groupMenuView.getMeasuredHeight();
-
-            for (int j = 0; j < adapter.getChildrenCount(i); j++) {
-                View menuListView = adapter.getChildView(i, j, false, null, groupMenuListView);
-
-                menuListView.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-                result += menuListView.getMeasuredHeight();
-            }
-        }
+        int result = adapter.getListLength(groupMenuListView);
 
         ViewGroup.LayoutParams params = groupMenuListView.getLayoutParams();
         params.height = result + (groupMenuListView.getDividerHeight() * (adapter.getGroupCount() - 1));
