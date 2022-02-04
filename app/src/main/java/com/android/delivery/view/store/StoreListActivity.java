@@ -21,6 +21,7 @@ import com.android.delivery.model.store.StoreInfoDto;
 import com.android.delivery.utils.PreferenceManger;
 import com.android.delivery.utils.RetrofitClient;
 import com.android.delivery.utils.ToolBarSetting;
+import com.android.delivery.view.cart.CartActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,12 +50,14 @@ public class StoreListActivity extends AppCompatActivity {
         binding = ActivityStoreListActvitiyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // tool bar
         toolbar = binding.toolbar;
         toolBarSetting = new ToolBarSetting(toolbar);
         setSupportActionBar(toolbar);
         toolBarSetting.setAddress(getSupportActionBar(), this);
 
 
+        // store list view
         listView = binding.storeListView;
         storeAdapter = new StoreAdapter(StoreListActivity.this);
         listView.setAdapter(storeAdapter);
@@ -108,6 +111,13 @@ public class StoreListActivity extends AppCompatActivity {
 
                 startActivity(intent);
             }
+        });
+
+
+        // cart btn
+        binding.cartItemBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+            startActivity(intent);
         });
 
 

@@ -97,5 +97,15 @@
 
     </GridLayout>
 
+    <Button
+        android:id="@+id/cartItemBtn"
+        android:text="장바구니"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

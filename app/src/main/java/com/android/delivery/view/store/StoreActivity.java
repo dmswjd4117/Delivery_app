@@ -28,6 +28,7 @@ import com.android.delivery.model.menu.GroupMenuDto;
 import com.android.delivery.model.menu.MenuDto;
 import com.android.delivery.model.store.StoreInfoDto;
 import com.android.delivery.utils.RetrofitClient;
+import com.android.delivery.view.cart.CartActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -42,8 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// tab host : https://recipes4dev.tistory.com/115
-// view, view group : https://class-programming.tistory.com/21
+
 public class StoreActivity extends AppCompatActivity {
 
     private String TAG = "STORE_ACTIVITY_TAG";
@@ -77,38 +77,68 @@ public class StoreActivity extends AppCompatActivity {
 
 
         initTab();
+        initView();
         setMenuListView();
         getMenu(storeId);
 
 
 
-        storeSearchApi.searchStoreById(storeId).enqueue(new Callback<ResponseDto>() {
-            @Override
-            public void onResponse(Call<ResponseDto> call, Response<ResponseDto> response) {
-                ResponseDto responseDto = response.body();
-                if(responseDto == null)return;
-                if(!responseDto.isSuccess()){
-                    Log.e(TAG, responseDto.getError().getMessage());
-                    return;
-                }
-
-                Log.i(TAG, responseDto.getResponse().toString());
-                Gson gson = new Gson();
-                Type storeInfoType = new TypeToken<StoreInfoDto>(){}.getType();
-                String jsonResult = gson.toJson(responseDto.getResponse());
-                StoreInfoDto storeInfo = gson.fromJson(jsonResult, storeInfoType);
-
-                binding.storeInfoTitle.setText(storeInfo.getName());
-                binding.storeInfoMinimumOrder.setText(storeInfo.getMinimumOrder()+"");
-                binding.storeInfoDeliveryTip.setText(storeInfo.getDeliveryTip()+"");
-            }
-
-            @Override
-            public void onFailure(Call<ResponseDto> call, Throwable t) {
-
-            }
+        // cart btn
+        binding.cartItemBtn.setOnClickListener(view -> {
+            Intent cartIntent = new Intent(getApplicationContext(), CartActivity.class);
+            startActivity(cartIntent);
         });
 
+    }
+
+    private void initTab(){
+        TabHost tabHost = (TabHost) binding.storeInfoTabHost;
+        tabHost.setup();
+
+        TabHost.TabSpec menuTab = tabHost.newTabSpec("menuTab");
+        menuTab.setContent(R.id.storeInfo_menuContent);
+        menuTab.setIndicator("메뉴");
+
+        TabHost.TabSpec infoTab = tabHost.newTabSpec("infoTab");
+        infoTab.setContent(R.id.storeInfo_infoContent);
+        infoTab.setIndicator("정보");
+
+        TabHost.TabSpec reviewTab = tabHost.newTabSpec("reviewTab");
+        reviewTab.setContent(R.id.storeInfo_reviewContent);
+        reviewTab.setIndicator("리뷰");
+
+        tabHost.addTab(menuTab);
+        tabHost.addTab(infoTab);
+        tabHost.addTab(reviewTab);
+    }
+
+    private void initView() {
+        storeSearchApi.searchStoreById(storeId).enqueue(new Callback<ResponseDto>() {
+                    @Override
+                    public void onResponse(Call<ResponseDto> call, Response<ResponseDto> response) {
+                        ResponseDto responseDto = response.body();
+                        if(responseDto == null)return;
+                        if(!responseDto.isSuccess()){
+                            Log.e(TAG, responseDto.getError().getMessage());
+                            return;
+                        }
+
+                        Log.i(TAG, responseDto.getResponse().toString());
+                        Gson gson = new Gson();
+                        Type storeInfoType = new TypeToken<StoreInfoDto>(){}.getType();
+                        String jsonResult = gson.toJson(responseDto.getResponse());
+                        StoreInfoDto storeInfo = gson.fromJson(jsonResult, storeInfoType);
+
+                        binding.storeInfoTitle.setText(storeInfo.getName());
+                        binding.storeInfoMinimumOrder.setText(storeInfo.getMinimumOrder()+"");
+                        binding.storeInfoDeliveryTip.setText(storeInfo.getDeliveryTip()+"");
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseDto> call, Throwable t) {
+
+                    }
+        });
     }
 
     private void setMenuListView(){
@@ -193,28 +223,6 @@ public class StoreActivity extends AppCompatActivity {
 
     }
 
-
-
-    private void initTab(){
-        TabHost tabHost = (TabHost) binding.storeInfoTabHost;
-        tabHost.setup();
-
-        TabHost.TabSpec menuTab = tabHost.newTabSpec("menuTab");
-        menuTab.setContent(R.id.storeInfo_menuContent);
-        menuTab.setIndicator("메뉴");
-
-        TabHost.TabSpec infoTab = tabHost.newTabSpec("infoTab");
-        infoTab.setContent(R.id.storeInfo_infoContent);
-        infoTab.setIndicator("정보");
-
-        TabHost.TabSpec reviewTab = tabHost.newTabSpec("reviewTab");
-        reviewTab.setContent(R.id.storeInfo_reviewContent);
-        reviewTab.setIndicator("리뷰");
-
-        tabHost.addTab(menuTab);
-        tabHost.addTab(infoTab);
-        tabHost.addTab(reviewTab);
-    }
 
     private void setListViewHeight(){
 

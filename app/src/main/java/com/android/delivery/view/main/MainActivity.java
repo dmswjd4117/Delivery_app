@@ -22,6 +22,7 @@ import com.android.delivery.utils.PreferenceManger;
 import com.android.delivery.utils.RetrofitClient;
 import com.android.delivery.utils.ToolBarSetting;
 import com.android.delivery.view.address.AddressSettingActivity;
+import com.android.delivery.view.cart.CartActivity;
 import com.android.delivery.view.store.StoreListActivity;
 import com.android.delivery.view.user.MyPage;
 import com.google.gson.Gson;
@@ -72,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             });
         }
+
+
+        // cart btn
+        binding.cartItemBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+            startActivity(intent);
+        });
 
 
     }
