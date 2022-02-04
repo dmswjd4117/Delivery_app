@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="6dip"
+    android:layout_margin="20dp">
+
+    <CheckBox
+        android:id="@+id/itemOption_checkBox"
+        android:text="option1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:checked="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+
+
+    <TextView
+        android:id="@+id/itemOption_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/itemOption_checkBox"
+        android:layout_alignParentEnd="true"
+        android:text="price" />
+</RelativeLayout>
