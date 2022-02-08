@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 public class PreferenceManger {
     public static final String PREFERENCES_NAME = "preference";
+    public static final String AUTH_TOKEN = "auth_token";
 
     private  static SharedPreferences getPreferences(Context context){
         return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);

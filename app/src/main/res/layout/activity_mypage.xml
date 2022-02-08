@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.user.MyPage">
+    tools:context=".view.user.MyPageActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,6 +25,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
+            android:id="@+id/myPage_nameBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -41,7 +42,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="30dp"
                 android:gravity="center_vertical"
-                android:text="로그인해주세요"
                 android:textSize="30dp"></TextView>
             <View
                 android:layout_width="0dp"
